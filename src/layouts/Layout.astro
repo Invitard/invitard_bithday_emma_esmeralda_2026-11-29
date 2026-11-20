@@ -5,12 +5,12 @@ interface Props {
 }
 
 const {
-	title = "Juber & Judit · Celebramos 65 y 60 años",
-	description = "Dos corazones, un mismo día. Te invitamos a celebrar los cumpleaños de Juber (65) y Judit (60) el martes 01 de diciembre de 2026 a las 5:00 p.m. en Casa Real Eventos, Cusco."
+	title = "El cuento de Emma Esmeralda · Mis 2 añitos",
+	description = "Había una vez una princesita que cumplía 2 años… Te invito a mi fiesta de Blanca Nieves el domingo 29 de noviembre de 2026 a las 4:00 p.m. en Crystal Palace, Cusco."
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const ogPath = `${base}/img/og-juber-judit.jpg`;
+const ogPath = `${base}/img/og-emma.jpg`;
 const ogImageUrl = Astro.site ? new URL(ogPath, Astro.site).href : ogPath;
 ---
 
@@ -19,7 +19,7 @@ const ogImageUrl = Astro.site ? new URL(ogPath, Astro.site).href : ogPath;
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-		<meta name="theme-color" content="#1c1d21" />
+		<meta name="theme-color" content="#0b1f4d" />
 		<!-- Siempre tema claro: evita que el modo oscuro del navegador altere los colores -->
 		<meta name="color-scheme" content="only light" />
 		<meta name="supported-color-schemes" content="light" />
@@ -37,9 +37,10 @@ const ogImageUrl = Astro.site ? new URL(ogPath, Astro.site).href : ogPath;
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Pinyon+Script&family=Montserrat:wght@400;500;600;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Montserrat:wght@400;500;600;700&display=swap"
 			rel="stylesheet"
 		/>
+		<link rel="preload" as="image" href={`${base}/img/elements/libro.webp`} />
 	</head>
 	<body>
 		<slot />
@@ -50,50 +51,38 @@ const ogImageUrl = Astro.site ? new URL(ogPath, Astro.site).href : ogPath;
 	:root {
 		color-scheme: only light;
 
-		/* ── GENERAL (de los dos): lino, carbón cálido y plata ── */
-		--char-950: #141518;
-		--char-900: #1c1d21;
-		--char-800: #26272c;
-		--char-700: #36373d;
-		--char-500: #66676d;
-		--char-300: #a3a3a8;
-		--char-200: #d4d2cf;
-		--char-100: #eceae6;
+		/* Azul — color principal */
+		--blue-950: #071638;
+		--blue-900: #0b1f4d;
+		--blue-800: #13306f;
+		--blue-700: #1d47a1;
+		--blue-600: #2a5cc2;
+		--blue-400: #6b9be6;
+		--blue-200: #cfe0fb;
+		--blue-100: #e3edfd;
+		--blue-50: #f3f7ff;
 
-		--ivory: #f7f4ef;
-		--pearl: #eeeae3;
-		--sand: #ddd6cc;
+		/* Rojo y verde — secundarios */
+		--red-700: #9a1424;
+		--red-600: #c62032;
+		--red-400: #e8505c;
+		--green-700: #1f6638;
+		--green-600: #2e8b4f;
+		--green-400: #5fbf7d;
+		--green-100: #def3e4;
 
-		--metal: #a19c96;
-		--metal-light: #e6e4e1;
-		--metal-dark: #6f6861;
-		--metal-gradient: linear-gradient(135deg, #8d9096 0%, #cfd2d6 35%, #ffffff 50%, #c3c6cb 62%, #8a8d93 100%);
+		/* Oro de cuento (de los elementos gráficos) */
+		--gold: #d9a93a;
+		--gold-dark: #a8781c;
+		--gold-gradient: linear-gradient(135deg, #b98220 0%, #f6d77a 45%, #fff1bf 55%, #c99128 100%);
 
-		/* ── ÉL (Juber · Alianza Lima): azul y blanco ── */
-		--him-900: #16284a;
-		--him-700: #233d6e;
-		--him-500: #4f6a9c;
-		--him-100: #e3e9f3;
+		--ink: #1a2a4f;
+		--ink-soft: #3d4f78;
+		--cream: #fffdf6;
 
-		/* ── ELLA (Judit · Reina): rosa y dorado ── */
-		--rose: #c4979a;
-		--rose-dark: #94676b;
-		--rose-soft: #f1e3e1;
-		--her-gold: #c2a56b;
-		--her-gold-gradient: linear-gradient(135deg, #9c7d45 0%, #d9c08a 38%, #f5ead0 50%, #d2b67e 62%, #9c7d45 100%);
-
-		/* Textura de cartulina: grano fino + fibras alargadas (SVG generado, sin imágenes) */
-		--grain-paper: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .42  0 0 0 0 .35  0 0 0 0 .24  0 0 0 .5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.55'/></svg>");
-		--fibers-paper: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.03 .09' numOctaves='3' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .55  0 0 0 0 .47  0 0 0 0 .33  0 0 0 1 -.5'/></filter><rect width='100%' height='100%' filter='url(%23f)' opacity='.22'/></svg>");
-		--grain-dark: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 .95  0 0 0 0 .85  0 0 0 .45 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.35'/></svg>");
-		--fibers-dark: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.03 .09' numOctaves='3' seed='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .85  0 0 0 0 .8  0 0 0 0 .7  0 0 0 1 -.5'/></filter><rect width='100%' height='100%' filter='url(%23f)' opacity='.1'/></svg>");
-
-		--ink: #2a2a2f;
-		--ink-soft: #57565c;
-
-		--font-caps: 'Cinzel', 'Cormorant Garamond', serif;
-		--font-script: 'Pinyon Script', cursive;
-		--font-serif: 'Cormorant Garamond', Georgia, serif;
+		--font-deco: 'Cinzel Decorative', 'Cormorant Garamond', serif;
+		--font-script: 'Great Vibes', cursive;
+		--font-story: 'Cormorant Garamond', Georgia, serif;
 		--font-body: 'Montserrat', system-ui, sans-serif;
 
 		--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -109,11 +98,14 @@ const ogImageUrl = Astro.site ? new URL(ogPath, Astro.site).href : ogPath;
 	}
 
 	html {
-		background-color: var(--char-950);
+		background-color: var(--blue-950);
 		background-image:
-			var(--grain-dark),
-			radial-gradient(ellipse at 50% -10%, rgba(161, 156, 150, 0.16) 0%, transparent 55%),
-			radial-gradient(ellipse at 50% 0%, #2c2d33 0%, #1c1d21 45%, #141518 100%);
+			radial-gradient(1px 1px at 12% 18%, rgba(255, 255, 255, 0.7), transparent 60%),
+			radial-gradient(1.5px 1.5px at 78% 12%, rgba(255, 255, 255, 0.8), transparent 60%),
+			radial-gradient(1px 1px at 45% 70%, rgba(255, 255, 255, 0.6), transparent 60%),
+			radial-gradient(1.5px 1.5px at 88% 82%, rgba(255, 255, 255, 0.7), transparent 60%),
+			radial-gradient(1px 1px at 22% 88%, rgba(255, 255, 255, 0.6), transparent 60%),
+			radial-gradient(ellipse at 50% 0%, #1d3f8f 0%, #0b1f4d 45%, #071638 100%);
 		background-attachment: fixed;
 		color: var(--ink);
 		font-family: var(--font-body);
@@ -150,18 +142,9 @@ const ogImageUrl = Astro.site ? new URL(ogPath, Astro.site).href : ogPath;
 	}
 
 	:focus-visible {
-		outline: 2px solid var(--metal);
+		outline: 3px solid var(--gold);
 		outline-offset: 3px;
 		border-radius: 6px;
-	}
-
-	.sr-only {
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		overflow: hidden;
-		clip: rect(0 0 0 0);
-		white-space: nowrap;
 	}
 
 	@media (prefers-reduced-motion: reduce) {

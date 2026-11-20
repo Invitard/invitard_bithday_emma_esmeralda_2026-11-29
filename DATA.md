@@ -1,26 +1,23 @@
 ### Cumpleaños
-Juber Morneo
-65 años
-Judit Bocanegra
-60 años
-Temática: Club de futbol Alianza Lima para Juber y Reina para Judit 
+Emma Esmeralda
+2 años
+Temática: Blanca nieves y los 2 enanitos (animales del bosque)
 
 ### Paleta de colores
-
+Azul
+Rojo
+Verde
 
 ### Itinerario
-5:00 p.m. hora de inicio
+4:00 p.m. hora de inicio
 
 ### Dirección
-Casa Real Eventos
-Av. Huayruropata 1718, Cusco
-https://share.google/7mynD37WDljfALQlL
+CRYSTAL PALACE CUSCO
+Av. Tomasa Titto Condemayta 1834
+https://maps.app.goo.gl/T767ntdpDxXdz9Q57
 
 ### Fecha
-2026-12-01 (Martes 01 de Diciembre)
+2026-11-29 (Domingo 29 de noviembre)
 
 ### Confirmación
-Confirmar con Alexander Moreno +51 989 701 205
-
-### Código de vestimenta
-Elegante
+Confirmar con Alisson

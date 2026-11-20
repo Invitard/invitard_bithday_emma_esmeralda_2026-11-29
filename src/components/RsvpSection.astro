@@ -1,343 +1,85 @@
 ---
-// RsvpSection.astro — confirmación por WhatsApp con Alexander: quién confirma y sus acompañantes
-const phone = '51989701205';
-const phoneLabel = '+51 989 701 205';
-const contact = 'Alexander Moreno';
-const MAX_GUESTS = 10;
+// RsvpSection.astro — confirmación por WhatsApp con Alisson
+const phone = '51949155127';
 ---
 
-<form class="rsvp" id="rsvp-form" data-phone={phone} data-max={MAX_GUESTS} novalidate>
-	<fieldset class="rsvp-attend">
-		<legend class="rsvp-label">¿Nos acompañarás?</legend>
-		<div class="attend-options">
-			<label class="attend-opt">
-				<input type="radio" name="attend" value="yes" checked />
-				<span>
-					<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
-					Sí, asistiré
-				</span>
-			</label>
-			<label class="attend-opt">
-				<input type="radio" name="attend" value="no" />
-				<span>
-					<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
-					No podré ir
-				</span>
-			</label>
-		</div>
-	</fieldset>
-
+<form class="rsvp" id="rsvp-form" data-phone={phone}>
 	<label class="rsvp-field">
-		<span class="rsvp-label">Tu nombre completo <em>*</em></span>
-		<input type="text" name="name" id="rsvp-name" autocomplete="name" placeholder="Ej.: María Pérez Quispe" maxlength="60" required aria-describedby="rsvp-name-error" />
-		<span class="rsvp-error" id="rsvp-name-error" hidden>Escribe tu nombre para poder confirmar.</span>
+		<span class="rsvp-label">Tu nombre</span>
+		<input type="text" name="name" id="rsvp-name" autocomplete="name" placeholder="Ej.: María Pérez" maxlength="60" />
 	</label>
 
-	<div class="rsvp-guests" id="rsvp-guests-block">
-		<div class="guests-head">
-			<span class="rsvp-label">Acompañantes</span>
-			<span class="guests-count" id="rsvp-guest-count" aria-live="polite">Solo yo</span>
-		</div>
-		<ol class="guest-list" id="rsvp-guest-list"></ol>
-		<button type="button" class="btn-add" id="rsvp-add-guest">
-			<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
-			<span>Agregar acompañante</span>
-		</button>
-	</div>
-
-	<label class="rsvp-field">
-		<span class="rsvp-label">Un mensaje para Juber y Judit <small>(opcional)</small></span>
-		<textarea name="message" id="rsvp-message" rows="3" maxlength="280" placeholder="Unas palabras de cariño…"></textarea>
-	</label>
 
 	<button type="submit" class="btn-whatsapp">
 		<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
 			<path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.63c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.01-1.24-.74-.66-1.24-1.48-1.39-1.73-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.45-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1s.9 2.44 1.03 2.61c.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.59.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z" />
 		</svg>
-		<span id="rsvp-submit-text">Confirmar por WhatsApp</span>
+		<span>Confirmar por WhatsApp</span>
 	</button>
 
 	<p class="rsvp-contact">
-		Tu confirmación llegará a <strong>{contact}</strong><br />
-		<a href={`tel:+${phone}`}>{phoneLabel}</a>
+		Confirma con <strong>Alisson</strong> ·
+		<a href={`tel:+${phone}`}>+51 949 155 127</a>
 	</p>
 </form>
 
-<template id="rsvp-guest-tpl">
-	<li class="guest-row">
-		<span class="guest-num" aria-hidden="true"></span>
-		<input type="text" class="guest-input" maxlength="60" autocomplete="off" placeholder="Nombre del acompañante" />
-		<button type="button" class="guest-remove" aria-label="Quitar acompañante">
-			<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
-		</button>
-	</li>
-</template>
-
 <style>
 	.rsvp {
-		max-width: 350px;
+		max-width: 340px;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
-		gap: 18px;
-		padding: 24px 20px 20px;
+		gap: 14px;
 		text-align: left;
-		border-radius: 20px;
-		background: rgba(247, 244, 239, 0.04);
-		border: 1px solid rgba(161, 156, 150, 0.4);
-		box-shadow: inset 0 0 0 5px rgba(28, 28, 32, 0.4), inset 0 0 0 6px rgba(161, 156, 150, 0.18);
-	}
-
-	fieldset {
-		border: none;
 	}
 
 	.rsvp-field {
 		display: flex;
 		flex-direction: column;
-		gap: 7px;
+		gap: 6px;
 	}
 
 	.rsvp-label {
-		font-family: var(--font-caps);
 		font-size: 11px;
 		font-weight: 600;
-		letter-spacing: 1.6px;
-		text-transform: uppercase;
-		color: var(--metal-light);
+		letter-spacing: 0.6px;
+		color: var(--blue-100);
 	}
 
-	.rsvp-label em {
-		font-style: normal;
-		color: var(--rose);
-	}
-
-	.rsvp-label small {
-		font-family: var(--font-body);
-		font-size: 10px;
-		letter-spacing: 0.4px;
-		text-transform: none;
-		color: var(--char-300);
-	}
-
-	.rsvp input[type='text'],
-	.rsvp textarea {
+	.rsvp input {
 		width: 100%;
-		padding: 13px 15px;
-		border-radius: 12px;
-		border: 1px solid rgba(161, 156, 150, 0.45);
-		background: var(--ivory);
+		padding: 13px 16px;
+		border-radius: 14px;
+		border: 1.5px solid rgba(246, 215, 122, 0.5);
+		background: rgba(255, 255, 255, 0.96);
 		font: 500 15px var(--font-body);
 		color: var(--ink);
 		transition: border-color 0.2s, box-shadow 0.2s;
 	}
 
-	.rsvp textarea {
-		resize: vertical;
-		min-height: 84px;
-		line-height: 1.45;
-	}
-
-	.rsvp input[type='text']::placeholder,
-	.rsvp textarea::placeholder {
-		color: #9aa1af;
-	}
-
-	.rsvp input[type='text']:focus,
-	.rsvp textarea:focus {
+	.rsvp input:focus {
 		outline: none;
-		border-color: var(--metal);
-		box-shadow: 0 0 0 4px rgba(161, 156, 150, 0.3);
+		border-color: var(--gold);
+		box-shadow: 0 0 0 4px rgba(217, 169, 58, 0.3);
 	}
 
-	.rsvp input[aria-invalid='true'] {
-		border-color: var(--rose);
-		box-shadow: 0 0 0 4px rgba(180, 135, 138, 0.3);
-	}
-
-	.rsvp-error {
-		font-size: 12px;
-		color: #e8c3c5;
-	}
-
-	/* Asistencia */
-	.rsvp-attend .rsvp-label {
-		display: block;
-		margin-bottom: 8px;
-	}
-
-	.attend-options {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 8px;
-	}
-
-	.attend-opt {
-		position: relative;
-		cursor: pointer;
-	}
-
-	.attend-opt input {
-		position: absolute;
-		opacity: 0;
-		pointer-events: none;
-	}
-
-	.attend-opt span {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 6px;
-		padding: 12px 8px;
-		border-radius: 12px;
-		border: 1px solid rgba(161, 156, 150, 0.4);
-		font-size: 13px;
-		font-weight: 600;
-		color: var(--char-200);
-		transition: background 0.25s, color 0.25s, border-color 0.25s;
-	}
-
-	.attend-opt span svg {
-		opacity: 0.4;
-	}
-
-	.attend-opt input:checked + span {
-		background: var(--metal-gradient);
-		border-color: transparent;
-		color: var(--char-900);
-	}
-
-	.attend-opt input:checked + span svg {
-		opacity: 1;
-	}
-
-	.attend-opt input:focus-visible + span {
-		outline: 2px solid var(--metal-light);
-		outline-offset: 2px;
-	}
-
-	/* Acompañantes */
-	.rsvp-guests {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-	}
-
-	.rsvp-guests[hidden] {
-		display: none;
-	}
-
-	.guests-head {
-		display: flex;
-		align-items: baseline;
-		justify-content: space-between;
-		gap: 8px;
-	}
-
-	.guests-count {
-		font-family: var(--font-serif);
-		font-style: italic;
-		font-size: 15px;
-		color: var(--char-200);
-	}
-
-	.guest-list {
-		list-style: none;
-		display: flex;
-		flex-direction: column;
-		gap: 8px;
-	}
-
-	.guest-list:empty {
-		display: none;
-	}
-
-	.guest-row {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		animation: row-in 0.4s var(--ease-out);
-	}
-
-	.guest-num {
-		flex: none;
-		display: grid;
-		place-items: center;
-		width: 26px;
-		height: 26px;
-		border-radius: 50%;
-		border: 1px solid var(--metal);
-		font-family: var(--font-caps);
-		font-size: 12px;
-		font-weight: 600;
-		color: var(--metal-light);
-	}
-
-	.guest-row .guest-input {
-		flex: 1;
-		min-width: 0;
-		padding: 11px 13px;
-	}
-
-	.guest-remove {
-		flex: none;
-		display: grid;
-		place-items: center;
-		width: 36px;
-		height: 36px;
-		border-radius: 50%;
-		color: var(--char-200);
-		background: rgba(247, 244, 239, 0.06);
-		transition: background 0.2s, color 0.2s;
-	}
-
-	.guest-remove:hover {
-		color: #fff;
-		background: rgba(180, 135, 138, 0.35);
-	}
-
-	.btn-add {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		gap: 8px;
-		padding: 11px 16px;
-		border-radius: 12px;
-		border: 1px dashed rgba(161, 156, 150, 0.6);
-		color: var(--metal-light);
-		font-size: 13px;
-		font-weight: 600;
-		letter-spacing: 0.4px;
-		transition: background 0.2s, border-color 0.2s;
-	}
-
-	.btn-add:hover {
-		background: rgba(161, 156, 150, 0.1);
-		border-color: var(--metal);
-	}
-
-	.btn-add[disabled] {
-		opacity: 0.4;
-		cursor: not-allowed;
-	}
-
-	/* Enviar */
 	.btn-whatsapp {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		gap: 10px;
 		width: 100%;
-		margin-top: 2px;
+		margin-top: 4px;
 		padding: 15px 20px;
 		border-radius: 999px;
-		background: linear-gradient(135deg, #3b8f6a, #24624a);
+		background: linear-gradient(135deg, var(--green-400), var(--green-700));
 		color: #fff;
 		font-size: 13px;
 		font-weight: 700;
 		letter-spacing: 1px;
 		text-transform: uppercase;
-		box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 0 0 1px rgba(228, 226, 223, 0.45);
+		box-shadow: 0 10px 22px rgba(31, 102, 56, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+		animation: wa-pulse 2.6s ease-in-out infinite;
 		transition: transform 0.25s var(--ease-spring);
 	}
 
@@ -345,150 +87,41 @@ const MAX_GUESTS = 10;
 		transform: translateY(-2px) scale(1.02);
 	}
 
-	.btn-whatsapp:active {
-		transform: scale(0.97);
-	}
-
 	.rsvp-contact {
 		text-align: center;
 		font-size: 12px;
-		line-height: 1.6;
-		color: var(--char-200);
+		color: var(--blue-100);
 	}
 
 	.rsvp-contact strong {
-		color: var(--ivory);
-		font-weight: 600;
+		color: #fff;
 	}
 
 	.rsvp-contact a {
-		color: var(--metal-light);
+		color: #f6d77a;
 		font-weight: 600;
 		white-space: nowrap;
 	}
 
-	@keyframes row-in {
-		from { opacity: 0; transform: translateY(-6px); }
-		to { opacity: 1; transform: none; }
+	@keyframes wa-pulse {
+		0%, 100% { box-shadow: 0 10px 22px rgba(31, 102, 56, 0.45), 0 0 0 0 rgba(95, 191, 125, 0.55); }
+		50% { box-shadow: 0 10px 22px rgba(31, 102, 56, 0.45), 0 0 0 10px rgba(95, 191, 125, 0); }
 	}
 </style>
 
 <script>
 	const form = document.getElementById('rsvp-form') as HTMLFormElement | null;
 	const nameInput = document.getElementById('rsvp-name') as HTMLInputElement | null;
-	const nameError = document.getElementById('rsvp-name-error');
-	const list = document.getElementById('rsvp-guest-list');
-	const addBtn = document.getElementById('rsvp-add-guest') as HTMLButtonElement | null;
-	const tpl = document.getElementById('rsvp-guest-tpl') as HTMLTemplateElement | null;
-	const countLabel = document.getElementById('rsvp-guest-count');
-	const guestsBlock = document.getElementById('rsvp-guests-block');
-	const messageInput = document.getElementById('rsvp-message') as HTMLTextAreaElement | null;
-	const submitText = document.getElementById('rsvp-submit-text');
 
-	if (form && nameInput && list && addBtn && tpl) {
-		const max = Number(form.dataset.max) || 10;
-
-		const rows = () => Array.from(list.querySelectorAll<HTMLLIElement>('.guest-row'));
-
-		const refresh = () => {
-			const all = rows();
-			all.forEach((row, i) => {
-				const num = row.querySelector('.guest-num');
-				const input = row.querySelector('input');
-				if (num) num.textContent = String(i + 1);
-				input?.setAttribute('aria-label', `Nombre del acompañante ${i + 1}`);
-			});
-			addBtn.disabled = all.length >= max;
-			if (countLabel) {
-				const n = all.length;
-				countLabel.textContent = n === 0 ? 'Solo yo' : `${n} acompañante${n === 1 ? '' : 's'} · ${n + 1} en total`;
-			}
-		};
-
-		const addGuest = () => {
-			if (rows().length >= max) return;
-			const frag = tpl.content.cloneNode(true) as DocumentFragment;
-			const row = frag.querySelector<HTMLLIElement>('.guest-row');
-			if (!row) return;
-			row.querySelector('.guest-remove')?.addEventListener('click', () => {
-				row.remove();
-				refresh();
-				addBtn.focus();
-			});
-			list.appendChild(row);
-			refresh();
-			row.querySelector('input')?.focus();
-		};
-
-		addBtn.addEventListener('click', addGuest);
-
-		// Si no asistirá, se ocultan los acompañantes
-		const attending = () => (form.querySelector<HTMLInputElement>('input[name="attend"]:checked')?.value ?? 'yes') === 'yes';
-		form.querySelectorAll<HTMLInputElement>('input[name="attend"]').forEach((r) =>
-			r.addEventListener('change', () => {
-				const yes = attending();
-				if (guestsBlock) guestsBlock.hidden = !yes;
-				if (submitText) submitText.textContent = yes ? 'Confirmar por WhatsApp' : 'Avisar por WhatsApp';
-			})
-		);
-
-		nameInput.addEventListener('input', () => {
-			if (nameInput.value.trim()) {
-				nameInput.removeAttribute('aria-invalid');
-				if (nameError) nameError.hidden = true;
-			}
-		});
-
+	if (form && nameInput) {
 		form.addEventListener('submit', (e) => {
 			e.preventDefault();
-			const name = nameInput.value.trim().replace(/\s+/g, ' ');
-			if (!name) {
-				nameInput.setAttribute('aria-invalid', 'true');
-				if (nameError) nameError.hidden = false;
-				nameInput.focus();
-				return;
-			}
-
-			const note = messageInput?.value.trim() ?? '';
-			const lines: string[] = [];
-
-			if (attending()) {
-				const guests = rows()
-					.map((r) => r.querySelector('input')?.value.trim().replace(/\s+/g, ' ') ?? '')
-					.filter(Boolean);
-
-				lines.push(
-					'¡Hola Alexander! 👑⚽',
-					'',
-					'Confirmo mi asistencia al cumpleaños de *Juber (65)* y *Judit (60)*.',
-					'📅 Martes 01 de diciembre · 5:00 p.m.',
-					'📍 Casa Real Eventos, Cusco',
-					'',
-					`👤 *Confirma:* ${name}`
-				);
-				if (guests.length) {
-					lines.push(`👥 *Acompañantes (${guests.length}):*`);
-					guests.forEach((g, i) => lines.push(`    ${i + 1}. ${g}`));
-				} else {
-					lines.push('👥 *Acompañantes:* ninguno');
-				}
-				lines.push('', `🎟️ *Total de personas:* ${guests.length + 1}`);
-			} else {
-				lines.push(
-					'¡Hola Alexander! 👑⚽',
-					'',
-					`Soy *${name}*. Lamentablemente no podré asistir al cumpleaños de Juber y Judit el martes 01 de diciembre. ¡Les deseo una celebración maravillosa!`
-				);
-			}
-
-			if (note) lines.push('', `💌 *Mensaje para Juber y Judit:* ${note}`);
-
-			const url = `https://wa.me/${form.dataset.phone}?text=${encodeURIComponent(lines.join('\n'))}`;
-			const win = window.open(url, '_blank');
-			if (win) win.opener = null;
-			else window.location.href = url;
+			const name = nameInput.value.trim();
+			const who = name ? `Soy ${name} y con` : 'Con';
+			const msg =
+				`¡Hola Alisson! 🍎✨ ${who} mucha alegría confirmo mi asistencia al cumpleaños de Emma Esmeralda ` +
+				`(2 añitos) el domingo 29 de noviembre a las 4:00 p.m. en Crystal Palace Cusco. 👑`;
+			window.open(`https://wa.me/${form.dataset.phone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
 		});
-
-		refresh();
 	}
 </script>

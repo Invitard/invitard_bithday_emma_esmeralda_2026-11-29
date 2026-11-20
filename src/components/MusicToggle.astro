@@ -1,11 +1,12 @@
 ---
-// MusicToggle.astro — "Celebration" (Kool & The Gang) suena al abrir el sobre
-// Si la canción no carga, el botón no aparece
+// MusicToggle.astro — "Sonreír y Cantar" (Blanca Nieves) suena al abrir el cuento
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const song = `${base}/mp3/celebration.mp3`; // Kool & The Gang - Celebration
+const song = `${base}/mp3/${encodeURIComponent('Sonreír y Cantar Blanca Nieves.mp3')}`;
+const sparkle = `${base}/mp3/EFECTO_DE_SONIDO_Resplandor.mp3`;
 ---
 
 <audio id="story-music" src={song} preload="auto"></audio>
+<audio id="story-sparkle" src={sparkle} preload="auto"></audio>
 
 <button class="music-btn" id="music-btn" type="button" aria-label="Reproducir música" aria-pressed="false" hidden>
 	<span class="music-notes" aria-hidden="true"><i>♪</i><i>♫</i><i>♪</i></span>
@@ -24,9 +25,9 @@ const song = `${base}/mp3/celebration.mp3`; // Kool & The Gang - Celebration
 		width: 54px;
 		height: 54px;
 		border-radius: 50%;
-		color: var(--metal-light);
-		background: linear-gradient(160deg, var(--char-700), var(--char-950));
-		border: 1px solid var(--metal);
+		color: #fff1bf;
+		background: linear-gradient(160deg, var(--blue-600), var(--blue-900));
+		border: 2px solid var(--gold);
 		box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4);
 		animation: music-in 0.6s var(--ease-spring) both;
 		transition: transform 0.25s var(--ease-spring);
@@ -69,7 +70,7 @@ const song = `${base}/mp3/celebration.mp3`; // Kool & The Gang - Celebration
 		top: 0;
 		font-style: normal;
 		font-size: 14px;
-		color: var(--metal);
+		color: var(--gold);
 		opacity: 0;
 	}
 
@@ -77,8 +78,8 @@ const song = `${base}/mp3/celebration.mp3`; // Kool & The Gang - Celebration
 		animation: note-rise 2.4s ease-out infinite;
 	}
 
-	.music-btn.is-playing .music-notes i:nth-child(2) { animation-delay: 0.8s; color: var(--rose); }
-	.music-btn.is-playing .music-notes i:nth-child(3) { animation-delay: 1.6s; color: var(--char-200); }
+	.music-btn.is-playing .music-notes i:nth-child(2) { animation-delay: 0.8s; color: var(--red-400); }
+	.music-btn.is-playing .music-notes i:nth-child(3) { animation-delay: 1.6s; color: var(--green-400); }
 
 	@keyframes note-rise {
 		0% { transform: translate(-50%, 0) scale(0.6); opacity: 0; }
@@ -92,8 +93,8 @@ const song = `${base}/mp3/celebration.mp3`; // Kool & The Gang - Celebration
 	}
 
 	@keyframes music-spin-glow {
-		0%, 100% { box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4), 0 0 0 0 rgba(228, 226, 223, 0.5); }
-		50% { box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4), 0 0 0 9px rgba(228, 226, 223, 0); }
+		0%, 100% { box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4), 0 0 0 0 rgba(246, 215, 122, 0.5); }
+		50% { box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4), 0 0 0 9px rgba(246, 215, 122, 0); }
 	}
 </style>
 
@@ -132,13 +133,18 @@ const song = `${base}/mp3/celebration.mp3`; // Kool & The Gang - Celebration
 
 		btn.addEventListener('click', () => (audio.paused ? play() : audio.pause()));
 
-		// Si la canción no carga, no mostramos el botón
-		let songOk = true;
-		audio.addEventListener('error', () => { songOk = false; btn.hidden = true; });
-		const showButton = () => { if (songOk) btn.hidden = false; };
+		// Efecto de resplandor al abrir el libro
+		const sparkleFx = document.getElementById('story-sparkle') as HTMLAudioElement | null;
+		const playSparkle = () => {
+			if (!sparkleFx) return;
+			sparkleFx.volume = 0.9;
+			sparkleFx.play().catch(() => {});
+		};
+
+		const showButton = () => { btn.hidden = false; };
 		if (document.getElementById('story-cover')) {
-			// Se inicia dentro del clic para que el navegador permita el audio
-			document.addEventListener('story:opening', play, { once: true });
+			// Ambos se inician dentro del clic para que el navegador permita el audio
+			document.addEventListener('story:opening', () => { playSparkle(); play(); }, { once: true });
 			document.addEventListener('story:open', showButton, { once: true });
 		} else {
 			showButton();

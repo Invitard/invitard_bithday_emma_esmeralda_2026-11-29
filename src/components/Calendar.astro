@@ -1,8 +1,8 @@
 ---
-// Calendar.astro — diciembre 2026 con el martes 1 marcado con un corazón dorado
+// Calendar.astro — noviembre 2026 con el día 29 marcado por una manzana mágica
 const year = 2026;
-const month = 11; // diciembre (0-indexado)
-const highlight = 1;
+const month = 10; // noviembre (0-indexado)
+const highlight = 29;
 
 const firstWeekday = (new Date(Date.UTC(year, month, 1)).getUTCDay() + 6) % 7; // lunes = 0
 const daysInMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
@@ -13,26 +13,22 @@ const cells: (number | null)[] = [
 const weekdays = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 ---
 
-<div class="calendar" aria-label="Calendario de diciembre de 2026, martes 1 marcado">
+<div class="calendar" aria-label="Calendario de noviembre de 2026, domingo 29 marcado">
 	<div class="cal-head">
-		<span class="cal-month">Diciembre</span>
+		<span class="cal-month">Noviembre</span>
 		<span class="cal-year">2026</span>
 	</div>
 	<div class="cal-grid">
-		{weekdays.map((d) => <span class="cal-wd">{d}</span>)}
+		{weekdays.map((d, i) => <span class={`cal-wd ${i === 6 ? 'is-sun' : ''}`}>{d}</span>)}
 		{cells.map((day) =>
 			day === null ? (
 				<span class="cal-empty" />
 			) : day === highlight ? (
-				<span class="cal-day is-party" aria-label="Martes 1: ¡la celebración!">
-					<svg class="cal-heart" viewBox="0 0 24 24" aria-hidden="true">
-						<defs>
-							<linearGradient id="calHeart" x1="0" y1="0" x2="1" y2="1">
-								<stop offset="0" stop-color="#233d6e" />
-								<stop offset="1" stop-color="#c4979a" />
-							</linearGradient>
-						</defs>
-						<path d="M12 21s-7.5-4.6-9.6-9.4C.9 8 3 4 6.8 4c2.2 0 3.7 1.2 5.2 3 1.5-1.8 3-3 5.2-3C21 4 23.1 8 21.6 11.6 19.5 16.4 12 21 12 21z" fill="url(#calHeart)" stroke="#ffffff" stroke-width=".8" />
+				<span class="cal-day is-party" aria-label="Domingo 29: ¡la fiesta!">
+					<svg class="cal-apple" viewBox="0 0 32 32" aria-hidden="true">
+						<path d="M16 9c-2.6-2.3-9-2.6-10.6 3.2-1.4 5.2 1.6 12.6 6 14.6 1.8.8 3 .2 4.6-.4 1.6.6 2.8 1.2 4.6.4 4.4-2 7.4-9.4 6-14.6C25 6.4 18.6 6.7 16 9z" fill="#c62032" />
+						<path d="M16 9.2c.2-2.4 1-4.4 2.4-6" stroke="#6b4423" stroke-width="1.8" stroke-linecap="round" fill="none" />
+						<path d="M17.4 6.2c1.6-2.6 4.8-3.4 7.4-2.4-1.2 2.8-4.4 3.8-7.4 2.4z" fill="#2e8b4f" />
 					</svg>
 					<span class="cal-num">{day}</span>
 				</span>
@@ -47,36 +43,34 @@ const weekdays = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 	.calendar {
 		max-width: 320px;
 		margin: 0 auto;
-		padding: 18px 16px 16px;
+		padding: 16px 14px 14px;
 		background: #fff;
-		border-radius: 18px;
-		border: 1px solid var(--sand);
-		box-shadow: 0 0 0 5px var(--ivory), 0 0 0 6px rgba(161, 156, 150, 0.45), 0 14px 30px rgba(28, 28, 32, 0.12);
+		border-radius: 20px;
+		border: 1.5px solid var(--blue-200);
+		border-bottom: 5px solid var(--green-600);
+		box-shadow: 0 10px 24px rgba(29, 71, 161, 0.12);
 	}
 
 	.cal-head {
 		display: flex;
 		align-items: baseline;
 		justify-content: center;
-		gap: 10px;
-		margin-bottom: 12px;
-		padding-bottom: 10px;
-		border-bottom: 1px solid var(--pearl);
+		gap: 8px;
+		margin-bottom: 10px;
 	}
 
 	.cal-month {
 		font-family: var(--font-script);
-		font-size: 36px;
+		font-size: 34px;
 		line-height: 1;
-		color: var(--char-800);
+		color: var(--blue-700);
 	}
 
 	.cal-year {
-		font-family: var(--font-caps);
+		font-family: var(--font-deco);
 		font-size: 13px;
-		font-weight: 600;
-		letter-spacing: 2px;
-		color: var(--metal-dark);
+		font-weight: 700;
+		color: var(--green-700);
 	}
 
 	.cal-grid {
@@ -87,11 +81,14 @@ const weekdays = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 	}
 
 	.cal-wd {
-		font-family: var(--font-caps);
 		font-size: 10px;
-		font-weight: 600;
-		color: var(--metal-dark);
+		font-weight: 700;
+		color: var(--green-600);
 		padding-bottom: 4px;
+	}
+
+	.cal-wd.is-sun {
+		color: var(--red-600);
 	}
 
 	.cal-day {
@@ -99,10 +96,10 @@ const weekdays = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 		display: grid;
 		place-items: center;
 		height: 32px;
-		font-family: var(--font-serif);
-		font-size: 15px;
+		font-size: 12.5px;
 		font-weight: 500;
 		color: var(--ink-soft);
+		border-radius: 50%;
 	}
 
 	.cal-day.is-party {
@@ -110,27 +107,26 @@ const weekdays = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 		font-weight: 700;
 	}
 
-	.cal-heart {
+	.cal-apple {
 		position: absolute;
 		left: 50%;
 		top: 50%;
 		width: 40px;
 		height: 40px;
-		margin: -20px 0 0 -20px;
-		filter: drop-shadow(0 3px 5px rgba(28, 28, 32, 0.3));
-		animation: heart-beat 2.4s ease-in-out infinite;
+		margin: -21px 0 0 -20px;
+		filter: drop-shadow(0 3px 5px rgba(154, 20, 36, 0.4));
+		animation: party-apple 2.4s var(--ease-spring) infinite;
 	}
 
 	.cal-num {
 		position: relative;
-		margin-top: -2px;
+		margin-top: 3px;
 	}
 
-	@keyframes heart-beat {
-		0%, 100% { transform: scale(1); }
-		12% { transform: scale(1.14); }
-		24% { transform: scale(1); }
-		36% { transform: scale(1.08); }
-		48% { transform: scale(1); }
+	@keyframes party-apple {
+		0%, 100% { transform: scale(1) rotate(0deg); }
+		15% { transform: scale(1.18) rotate(-8deg); }
+		30% { transform: scale(1) rotate(6deg); }
+		45% { transform: scale(1.05) rotate(0deg); }
 	}
 </style>

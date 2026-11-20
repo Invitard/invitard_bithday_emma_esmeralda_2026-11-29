@@ -1,56 +1,49 @@
 ---
-// Cover.astro — portada: sobre lacrado con el sello J&J que se abre al tocarlo
-const dust = Array.from({ length: 26 }, (_, i) => ({
+// Cover.astro — portada: el libro de cuentos que se abre al tocarlo
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const stars = Array.from({ length: 28 }, (_, i) => ({
 	x: (i * 37 + 11) % 100,
 	y: (i * 53 + 7) % 100,
-	s: 5 + ((i * 7) % 9),
-	d: ((i * 0.41) % 3.4).toFixed(2),
+	s: 6 + ((i * 7) % 10),
+	d: ((i * 0.37) % 3).toFixed(2),
 }));
 ---
 
-<div class="cover" id="story-cover" role="dialog" aria-modal="true" aria-label="Invitación de Juber y Judit">
-	<div class="cover-dust" aria-hidden="true">
-		{dust.map((st) => (
+<div class="cover" id="story-cover" role="dialog" aria-modal="true" aria-label="Portada del cuento de Emma Esmeralda">
+	<div class="cover-stars" aria-hidden="true">
+		{stars.map((st) => (
 			<svg class="cover-star" style={`left:${st.x}%;top:${st.y}%;width:${st.s}px;height:${st.s}px;animation-delay:${st.d}s`} viewBox="0 0 24 24">
 				<path d="M12 0c.9 6.4 5.1 10.8 12 12-6.9 1.2-11.1 5.6-12 12-.9-6.4-5.1-10.8-12-12C6.9 10.8 11.1 6.4 12 0z" fill="currentColor" />
 			</svg>
 		))}
 	</div>
 
-	<div class="cover-frame" aria-hidden="true"></div>
-
 	<div class="cover-content">
-		<div class="cover-head">
-			<p class="cover-kicker">Tienes una invitación</p>
-			<h1 class="cover-title">Juber <span>&amp;</span> Judit</h1>
-			<p class="cover-sub">Una celebración real · 65 &amp; 60</p>
-		</div>
+		<p class="cover-kicker">Un cuento de hadas</p>
+		<h1 class="cover-title">Emma Esmeralda</h1>
+		<p class="cover-sub">y su reino encantado</p>
 
-		<button class="envelope" id="open-envelope" type="button" aria-label="Abrir la invitación">
-			<span class="env-back" aria-hidden="true"></span>
-			<span class="env-letter" aria-hidden="true">
-				<span class="env-letter-kicker">Con alegría</span>
-				<span class="env-letter-names">Juber &amp; Judit</span>
-				<span class="env-letter-date">01 · 12 · 2026</span>
+		<button class="book" id="open-book" aria-label="Abrir el cuento">
+			<span class="book-glow" aria-hidden="true"></span>
+			<span class="book-page" aria-hidden="true">
+				<span class="book-page-text">Había<br />una vez…</span>
 			</span>
-			<span class="env-front" aria-hidden="true"></span>
-			<span class="env-flap" aria-hidden="true"></span>
-			<span class="env-seal" aria-hidden="true">
-				<span class="seal-ring"></span>
-				<span class="seal-text">J<i>&amp;</i>J</span>
-			</span>
+			<img class="book-cover" src={`${base}/img/elements/libro.webp`} alt="Libro de cuentos con la silueta dorada de una princesita" width="800" height="1120" />
 		</button>
 
-		<button class="cover-hint" id="open-envelope-hint" type="button" aria-label="Abrir la invitación">
+		<button class="cover-hint" id="open-book-hint" type="button" aria-label="Abrir el cuento">
+			<svg class="hint-arrow" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M12 19V5M5 12l7-7 7 7" />
+			</svg>
 			<span class="hint-icon" aria-hidden="true">
 				<span class="hint-ripple"></span>
-				<svg class="hint-hand" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+				<svg class="hint-hand" width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
 					<path d="M9 11.24V7.5a2.5 2.5 0 0 1 5 0v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63-4.54-2.26a1.3 1.3 0 0 0-.54-.11H13v-6a1.5 1.5 0 0 0-3 0v10.74l-3.43-.72a1.04 1.04 0 0 0-.98.29l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.96-1.37z" />
 				</svg>
 			</span>
 			<span class="hint-text">
-				<strong>Toca el sello</strong>
-				<span>para abrir tu invitación</span>
+				<strong>¡Toca el libro!</strong>
+				<span>para abrir el cuento</span>
 			</span>
 		</button>
 	</div>
@@ -65,10 +58,8 @@ const dust = Array.from({ length: 26 }, (_, i) => ({
 		place-items: center;
 		overflow: hidden;
 		background:
-			var(--grain-dark),
-			var(--fibers-dark),
-			radial-gradient(ellipse at 50% 58%, rgba(161, 156, 150, 0.18) 0%, transparent 55%),
-			radial-gradient(ellipse at 50% 0%, #2c2d33 0%, #1c1d21 55%, #141518 100%);
+			radial-gradient(ellipse at 50% 55%, rgba(42, 92, 194, 0.55) 0%, transparent 60%),
+			radial-gradient(ellipse at 50% 0%, #1d3f8f 0%, #0b1f4d 55%, #071638 100%);
 		transition: opacity 0.9s ease, visibility 0s linear 0.9s;
 	}
 
@@ -78,7 +69,7 @@ const dust = Array.from({ length: 26 }, (_, i) => ({
 		pointer-events: none;
 	}
 
-	.cover-dust {
+	.cover-stars {
 		position: absolute;
 		inset: 0;
 		pointer-events: none;
@@ -86,30 +77,13 @@ const dust = Array.from({ length: 26 }, (_, i) => ({
 
 	.cover-star {
 		position: absolute;
-		color: var(--metal-light);
-		animation: star-twinkle 3.2s ease-in-out infinite;
+		color: #f6d77a;
+		animation: star-twinkle 2.8s ease-in-out infinite;
 	}
 
 	@keyframes star-twinkle {
-		0%, 100% { opacity: 0.1; transform: scale(0.6) rotate(0deg); }
-		50% { opacity: 0.85; transform: scale(1) rotate(30deg); }
-	}
-
-	/* Marco fino dorado alrededor de la pantalla */
-	.cover-frame {
-		position: absolute;
-		inset: 14px;
-		border: 1px solid rgba(161, 156, 150, 0.35);
-		border-radius: 18px;
-		pointer-events: none;
-	}
-
-	.cover-frame::before {
-		content: '';
-		position: absolute;
-		inset: 5px;
-		border: 1px solid rgba(161, 156, 150, 0.15);
-		border-radius: 14px;
+		0%, 100% { opacity: 0.15; transform: scale(0.6) rotate(0deg); }
+		50% { opacity: 1; transform: scale(1) rotate(30deg); }
 	}
 
 	.cover-content {
@@ -121,259 +95,143 @@ const dust = Array.from({ length: 26 }, (_, i) => ({
 		align-items: center;
 	}
 
-	.cover-head {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		transition: opacity 0.5s ease, transform 0.6s var(--ease-out);
-	}
-
-	.cover.is-opening .cover-head {
-		opacity: 0;
-		transform: translateY(-16px);
-	}
-
 	.cover-kicker {
-		font-family: var(--font-caps);
+		font-family: var(--font-body);
 		font-size: 11px;
-		font-weight: 500;
-		letter-spacing: 5px;
+		font-weight: 600;
+		letter-spacing: 4px;
 		text-transform: uppercase;
-		color: var(--metal-light);
-		opacity: 0.85;
+		color: var(--blue-200);
 		animation: fade-down 1s var(--ease-out) both;
 	}
 
 	.cover-title {
 		font-family: var(--font-script);
 		font-weight: 400;
-		font-size: clamp(50px, 14vw, 68px);
-		line-height: 1.15;
-		margin-top: 6px;
-		padding: 0 8px;
-		background: var(--metal-gradient);
+		font-size: clamp(46px, 13vw, 64px);
+		line-height: 1.1;
+		background: var(--gold-gradient);
 		background-size: 200% 100%;
 		-webkit-background-clip: text;
 		background-clip: text;
 		color: transparent;
-		filter: drop-shadow(0 2px 10px rgba(161, 156, 150, 0.3));
-		animation: fade-down 1s var(--ease-out) 0.15s both, shimmer 6s linear infinite;
-	}
-
-	.cover-title span {
-		font-size: 0.75em;
+		filter: drop-shadow(0 2px 8px rgba(246, 215, 122, 0.35));
+		animation: fade-down 1s var(--ease-out) 0.15s both, shimmer 4s linear infinite;
 	}
 
 	.cover-sub {
-		font-family: var(--font-serif);
+		font-family: var(--font-story);
 		font-style: italic;
 		font-size: 18px;
-		color: var(--char-200);
-		margin-bottom: 30px;
+		color: var(--blue-100);
+		margin-bottom: 18px;
 		animation: fade-down 1s var(--ease-out) 0.3s both;
 	}
 
-	/* ───── Sobre ───── */
-	.envelope {
+	.book {
 		position: relative;
-		width: min(80vw, 320px);
-		aspect-ratio: 1.42;
-		perspective: 1200px;
-		animation: env-in 1.2s var(--ease-spring) 0.4s both, env-float 5s ease-in-out 1.6s infinite;
+		width: min(62vw, 250px);
+		aspect-ratio: 800 / 1120;
+		perspective: 1400px;
+		animation: book-float 4s ease-in-out infinite, book-in 1.2s var(--ease-spring) 0.4s both;
 		transition: transform 0.9s var(--ease-out);
-		-webkit-tap-highlight-color: transparent;
 	}
 
-	.env-back,
-	.env-front,
-	.env-flap,
-	.env-letter {
+	.book-glow {
 		position: absolute;
-		display: block;
+		inset: -18%;
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(246, 215, 122, 0.55) 0%, rgba(107, 155, 230, 0.25) 40%, transparent 70%);
+		animation: glow-pulse 2.6s ease-in-out infinite;
+		pointer-events: none;
 	}
 
-	/* Forro interior con rayas blanquiazules (guiño a Alianza Lima) */
-	.env-back {
-		inset: 0;
-		border-radius: 6px;
-		background:
-			linear-gradient(180deg, rgba(20, 21, 24, 0.35), transparent 40%),
-			repeating-linear-gradient(90deg, #233d6e 0 5px, #f4f0ea 5px 12px, #c4979a 12px 17px, #f4f0ea 17px 24px);
-		box-shadow: 0 24px 40px rgba(0, 0, 0, 0.45);
-		z-index: 1;
-	}
-
-	.env-letter {
-		left: 7%;
-		right: 7%;
-		top: 7%;
-		bottom: 6%;
-		z-index: 2;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		gap: 2px;
-		border-radius: 4px;
-		background:
-			var(--grain-paper),
-			radial-gradient(circle at 50% 0%, #fff 0%, transparent 70%),
-			var(--ivory);
-		border: 1px solid var(--metal);
-		box-shadow: inset 0 0 0 4px var(--ivory), inset 0 0 0 5px rgba(161, 156, 150, 0.5);
-		transition: transform 1.1s var(--ease-out) 0.75s;
-	}
-
-	.env-letter-kicker {
-		font-family: var(--font-caps);
-		font-size: 9px;
-		letter-spacing: 3px;
-		text-transform: uppercase;
-		color: var(--metal-dark);
-	}
-
-	.env-letter-names {
-		font-family: var(--font-script);
-		font-size: clamp(28px, 8vw, 36px);
-		line-height: 1.1;
-		color: var(--char-800);
-	}
-
-	.env-letter-date {
-		font-family: var(--font-caps);
-		font-size: 11px;
-		letter-spacing: 3px;
-		color: var(--rose-dark);
-	}
-
-	.env-front {
-		inset: 0;
-		z-index: 3;
-		border-radius: 6px;
-		background:
-			var(--grain-paper),
-			var(--fibers-paper),
-			linear-gradient(170deg, #f7f2e9 0%, #ebe2d2 100%);
-		clip-path: polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%);
-		box-shadow: inset 0 -2px 0 rgba(111, 104, 97, 0.25);
-	}
-
-	.env-front::before {
-		/* líneas de pliegue */
-		content: '';
+	.book-page {
 		position: absolute;
-		inset: 0;
+		left: 10%;
+		right: 8%;
+		top: 8%;
+		bottom: 4%;
+		border-radius: 4px 10px 10px 4px;
 		background:
-			linear-gradient(to top right, transparent calc(50% - 0.6px), rgba(111, 104, 97, 0.28) 50%, transparent calc(50% + 0.6px)) left bottom / 50% 100% no-repeat,
-			linear-gradient(to top left, transparent calc(50% - 0.6px), rgba(111, 104, 97, 0.28) 50%, transparent calc(50% + 0.6px)) right bottom / 50% 100% no-repeat;
-	}
-
-	.env-flap {
-		left: 0;
-		right: 0;
-		top: 0;
-		height: 58%;
-		z-index: 4;
-		background:
-			var(--grain-paper),
-			var(--fibers-paper),
-			linear-gradient(180deg, #f3ede3 0%, #e4d9c6 100%);
-		clip-path: polygon(0 0, 100% 0, 50% 100%);
-		transform-origin: 50% 0;
-		filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.15));
-		transition: transform 0.8s cubic-bezier(0.6, 0, 0.2, 1), z-index 0s linear 0.4s;
-	}
-
-	/* Sello de lacre */
-	.env-seal {
-		position: absolute;
-		left: 50%;
-		top: 58%;
-		z-index: 5;
+			linear-gradient(90deg, rgba(0, 0, 0, 0.12), transparent 12%),
+			#fffdf6;
 		display: grid;
 		place-items: center;
-		width: 25%;
-		aspect-ratio: 1;
-		translate: -50% -50%;
-		border-radius: 47% 53% 50% 50% / 52% 48% 52% 48%;
-		background: radial-gradient(circle at 35% 30%, #74737a 0%, #44434a 45%, #26252b 100%);
-		box-shadow:
-			0 4px 10px rgba(0, 0, 0, 0.35),
-			inset 0 -3px 6px rgba(0, 0, 0, 0.3),
-			inset 0 2px 4px rgba(255, 255, 255, 0.2);
-		animation: seal-pulse 2.6s ease-in-out infinite;
-		transition: transform 0.5s var(--ease-out), opacity 0.5s ease;
+		box-shadow: inset 0 0 30px rgba(168, 120, 28, 0.25);
 	}
 
-	.seal-ring {
-		position: absolute;
-		inset: 12%;
-		border-radius: 50%;
-		border: 1px solid rgba(228, 226, 223, 0.55);
-		box-shadow: inset 0 0 0 3px rgba(30, 30, 34, 0.45);
-	}
-
-	.seal-text {
-		position: relative;
+	.book-page-text {
 		font-family: var(--font-script);
-		font-size: clamp(20px, 6vw, 26px);
-		line-height: 1;
-		color: var(--metal-light);
-		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
-	}
-
-	.seal-text i {
-		font-style: normal;
-		font-size: 0.7em;
-	}
-
-	.envelope:hover .env-seal {
-		transform: scale(1.06);
-	}
-
-	/* Apertura */
-	.cover.is-opening .envelope {
-		animation: none;
-		transform: translateY(46px) scale(1.04);
-	}
-
-	.cover.is-opening .env-seal {
+		font-size: clamp(30px, 9vw, 40px);
+		line-height: 1.1;
+		color: var(--blue-700);
 		opacity: 0;
-		transform: scale(1.4);
+		transition: opacity 0.6s ease 0.5s;
+	}
+
+	.book-cover {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		transform-origin: 9% 50%;
+		backface-visibility: hidden;
+		transition: transform 1.3s cubic-bezier(0.6, 0, 0.2, 1);
+		filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.45));
+	}
+
+	.book:hover .book-cover {
+		transform: rotateY(-12deg);
+	}
+
+	.cover.is-opening .book {
 		animation: none;
+		transform: scale(1.12);
 	}
 
-	.cover.is-opening .env-flap {
-		transform: rotateX(180deg);
-		z-index: 1;
+	.cover.is-opening .book-cover {
+		transform: rotateY(-165deg);
 	}
 
-	.cover.is-opening .env-letter {
-		transform: translateY(-62%);
+	.cover.is-opening .book-page-text {
+		opacity: 1;
 	}
 
-	/* Indicación */
 	.cover-hint {
 		position: relative;
 		display: inline-flex;
 		align-items: center;
 		gap: 14px;
-		margin-top: 40px;
-		padding: 10px 24px 10px 10px;
-		min-height: 60px;
+		margin-top: 34px;
+		padding: 14px 26px 14px 14px;
+		min-height: 64px;
 		border-radius: 999px;
-		background: rgba(247, 244, 239, 0.06);
-		border: 1px solid rgba(161, 156, 150, 0.55);
-		box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-		backdrop-filter: blur(6px);
-		color: var(--ivory);
+		background: linear-gradient(135deg, #fff6d6 0%, #f6d77a 45%, #e2b34a 100%);
+		border: 2px solid rgba(255, 255, 255, 0.85);
+		box-shadow:
+			0 0 0 4px rgba(246, 215, 122, 0.25),
+			0 10px 28px rgba(0, 0, 0, 0.35),
+			0 0 30px rgba(246, 215, 122, 0.45);
+		color: var(--blue-700);
 		text-align: left;
+		cursor: pointer;
 		-webkit-tap-highlight-color: transparent;
-		animation: fade-up 1s var(--ease-out) 1s both;
+		animation: fade-up 1s var(--ease-out) 1s both, hint-pulse 2s ease-in-out 2s infinite;
 	}
 
 	.cover-hint:active {
 		transform: scale(0.96);
+	}
+
+	.hint-arrow {
+		position: absolute;
+		top: -30px;
+		left: 50%;
+		margin-left: -11px;
+		color: #f6d77a;
+		filter: drop-shadow(0 0 6px rgba(246, 215, 122, 0.7));
+		animation: arrow-bounce 1.2s ease-in-out infinite;
 	}
 
 	.hint-icon {
@@ -381,42 +239,43 @@ const dust = Array.from({ length: 26 }, (_, i) => ({
 		flex: none;
 		display: grid;
 		place-items: center;
-		width: 42px;
-		height: 42px;
+		width: 44px;
+		height: 44px;
 		border-radius: 50%;
-		background: var(--metal-gradient);
-		color: var(--char-900);
+		background: var(--blue-700);
+		color: #fff;
 	}
 
 	.hint-ripple {
 		position: absolute;
 		inset: 0;
 		border-radius: 50%;
-		box-shadow: 0 0 0 0 rgba(228, 226, 223, 0.6);
-		animation: hint-ping 1.8s ease-out infinite;
+		box-shadow: 0 0 0 0 rgba(232, 80, 92, 0.7);
+		animation: hint-ping 1.6s ease-out infinite;
 	}
 
 	.hint-hand {
+		width: 26px;
+		height: 26px;
 		animation: hand-tap 1.6s ease-in-out infinite;
 	}
 
 	.hint-text {
 		display: flex;
 		flex-direction: column;
-		line-height: 1.2;
+		line-height: 1.15;
 	}
 
 	.hint-text strong {
-		font-family: var(--font-serif);
-		font-size: 20px;
-		font-weight: 600;
-		color: var(--metal-light);
+		font-family: var(--font-story);
+		font-size: clamp(19px, 5.4vw, 22px);
+		font-weight: 700;
 	}
 
 	.hint-text span {
-		font-size: 12.5px;
+		font-size: 14px;
 		font-weight: 500;
-		color: var(--char-200);
+		opacity: 0.85;
 	}
 
 	.cover.is-opening .cover-hint {
@@ -427,29 +286,48 @@ const dust = Array.from({ length: 26 }, (_, i) => ({
 		pointer-events: none;
 	}
 
-	@keyframes env-in {
-		from { opacity: 0; transform: translateY(40px) scale(0.85); }
-		to { opacity: 1; transform: none; }
+	@keyframes hint-pulse {
+		0%, 100% { transform: scale(1); }
+		50% { transform: scale(1.06); }
 	}
 
-	@keyframes env-float {
-		0%, 100% { transform: translateY(0) rotate(-1deg); }
-		50% { transform: translateY(-8px) rotate(1deg); }
-	}
-
-	@keyframes seal-pulse {
-		0%, 100% { box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35), inset 0 -3px 6px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.2), 0 0 0 0 rgba(228, 226, 223, 0.5); }
-		50% { box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35), inset 0 -3px 6px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.2), 0 0 0 10px rgba(228, 226, 223, 0); }
-	}
-
-	@keyframes hint-ping {
-		to { box-shadow: 0 0 0 12px rgba(228, 226, 223, 0); }
+	@keyframes arrow-bounce {
+		0%, 100% { transform: translateY(0); opacity: 0.7; }
+		50% { transform: translateY(-8px); opacity: 1; }
 	}
 
 	@keyframes hand-tap {
 		0%, 100% { transform: translateY(0) scale(1); }
 		40% { transform: translateY(-3px) scale(1.05); }
 		55% { transform: translateY(2px) scale(0.92); }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.cover-hint,
+		.hint-arrow,
+		.hint-hand,
+		.hint-ripple {
+			animation: none;
+		}
+	}
+
+	@keyframes book-float {
+		0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+		50% { transform: translateY(-10px) rotate(1.5deg); }
+	}
+
+	@keyframes book-in {
+		from { opacity: 0; transform: translateY(40px) scale(0.8); }
+		to { opacity: 1; transform: none; }
+	}
+
+	@keyframes glow-pulse {
+		0%, 100% { opacity: 0.6; transform: scale(0.95); }
+		50% { opacity: 1; transform: scale(1.05); }
+	}
+
+	@keyframes hint-ping {
+		to { box-shadow: 0 0 0 12px rgba(232, 80, 92, 0); }
 	}
 
 	@keyframes fade-down {
@@ -466,134 +344,14 @@ const dust = Array.from({ length: 26 }, (_, i) => ({
 		from { background-position: 200% 0; }
 		to { background-position: -200% 0; }
 	}
-
-	/* Confeti dorado y azul */
-	:global(.confetti-layer) {
-		position: fixed;
-		inset: 0;
-		z-index: 120;
-		pointer-events: none;
-		overflow: hidden;
-	}
-
-	:global(.confetti) {
-		position: absolute;
-		top: 0;
-		left: 0;
-		will-change: transform, opacity;
-		backface-visibility: visible;
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.hint-hand,
-		.hint-ripple,
-		.env-seal {
-			animation: none;
-		}
-	}
 </style>
 
 <script>
 	const cover = document.getElementById('story-cover');
-	const envelope = document.getElementById('open-envelope');
-	const hint = document.getElementById('open-envelope-hint');
+	const book = document.getElementById('open-book');
+	const hint = document.getElementById('open-book-hint');
 
-	const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-	// Plata (general) + azul y blanco (él) + rosa y dorado (ella)
-	const COLORS = ['#c9ccd1', '#eef0f2', '#9a9ea5', '#ffffff', '#233d6e', '#4f6a9c', '#c4979a', '#e2c4c4', '#c2a56b'];
-	const SHINE: Record<string, string> = { '#c9ccd1': '#ffffff', '#9a9ea5': '#eef0f2', '#c2a56b': '#f5ead0' };
-	const rand = (a: number, b: number) => a + Math.random() * (b - a);
-	const pick = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)];
-
-	const makeLayer = (ttl: number) => {
-		const layer = document.createElement('div');
-		layer.className = 'confetti-layer';
-		layer.setAttribute('aria-hidden', 'true');
-		document.body.appendChild(layer);
-		window.setTimeout(() => layer.remove(), ttl);
-		return layer;
-	};
-
-	const makePiece = (layer: HTMLElement) => {
-		const el = document.createElement('span');
-		el.className = 'confetti';
-		const shape = Math.random();
-		const color = pick(COLORS);
-		if (shape < 0.45) {
-			el.style.width = `${rand(6, 9)}px`;
-			el.style.height = `${rand(10, 15)}px`;
-		} else if (shape < 0.75) {
-			el.style.width = `${rand(3, 4)}px`;
-			el.style.height = `${rand(14, 20)}px`;
-		} else {
-			const d = rand(5, 8);
-			el.style.width = el.style.height = `${d}px`;
-			el.style.borderRadius = '50%';
-		}
-		// Las piezas doradas brillan con degradado metálico
-		el.style.background = SHINE[color] ? `linear-gradient(135deg, ${color}, ${SHINE[color]} 50%, ${color})` : color;
-		layer.appendChild(el);
-		return el;
-	};
-
-	// Estallido en abanico que sale de la boca del sobre
-	const burstFromEnvelope = (origin: HTMLElement) => {
-		if (reduced) return;
-		const r = origin.getBoundingClientRect();
-		const ox = r.left + r.width / 2;
-		const oy = r.top + r.height * 0.3;
-		const layer = makeLayer(6000);
-		const fall = window.innerHeight;
-		for (let i = 0; i < 150; i++) {
-			const el = makePiece(layer);
-			const angle = (-90 + rand(-75, 75)) * (Math.PI / 180);
-			const speed = rand(170, 430);
-			const dx = Math.cos(angle) * speed;
-			const dy = Math.sin(angle) * speed;
-			const rot = rand(-720, 720);
-			const flip = rand(360, 1080);
-			const sway = rand(-60, 60);
-			const at = (x: number, y: number, rz: number, ry: number) =>
-				`translate(${ox}px, ${oy}px) translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${rz}deg) rotateY(${ry}deg)`;
-			el.animate(
-				[
-					{ transform: at(0, 0, 0, 0), opacity: 1, easing: 'cubic-bezier(.12,.75,.3,1)' },
-					{ transform: at(dx, dy, rot * 0.35, flip * 0.3), opacity: 1, offset: 0.28, easing: 'cubic-bezier(.45,0,.75,.6)' },
-					{ transform: at(dx * 1.15 + sway, dy + fall * 0.45, rot * 0.7, flip * 0.65), opacity: 1, offset: 0.65 },
-					{ transform: at(dx * 1.25 - sway, dy + fall * 0.95, rot, flip), opacity: 0 },
-				],
-				{ duration: rand(2600, 4000), delay: rand(0, 220), fill: 'both' }
-			);
-		}
-	};
-
-	// Lluvia suave desde arriba sobre toda la pantalla
-	const confettiRain = () => {
-		if (reduced) return;
-		const layer = makeLayer(9000);
-		const w = window.innerWidth;
-		const h = window.innerHeight;
-		for (let i = 0; i < 70; i++) {
-			const el = makePiece(layer);
-			const x = rand(0, w);
-			const drift = rand(-80, 80);
-			const rot = rand(-540, 540);
-			const flip = rand(360, 900);
-			const at = (px: number, py: number, rz: number, ry: number) =>
-				`translate(${px}px, ${py}px) rotate(${rz}deg) rotateY(${ry}deg)`;
-			el.animate(
-				[
-					{ transform: at(x, -30, 0, 0), opacity: 0 },
-					{ transform: at(x + drift * 0.5, h * 0.3, rot * 0.3, flip * 0.3), opacity: 1, offset: 0.25 },
-					{ transform: at(x - drift * 0.3, h * 0.7, rot * 0.7, flip * 0.7), opacity: 1, offset: 0.7 },
-					{ transform: at(x + drift, h + 30, rot, flip), opacity: 0 },
-				],
-				{ duration: rand(4200, 6800), delay: rand(0, 1800), easing: 'linear', fill: 'both' }
-			);
-		}
-	};
-
-	if (cover && envelope) {
+	if (cover && book) {
 		document.body.classList.add('is-locked');
 
 		const open = () => {
@@ -601,18 +359,15 @@ const dust = Array.from({ length: 26 }, (_, i) => ({
 			cover.classList.add('is-opening');
 			// Dentro del gesto del usuario para que el navegador permita la música
 			document.dispatchEvent(new CustomEvent('story:opening'));
-			// El confeti sale del sobre cuando la tarjeta empieza a subir…
-			window.setTimeout(() => burstFromEnvelope(envelope), 650);
-			// …y una lluvia suave cae al revelarse la invitación
-			window.setTimeout(confettiRain, 2700);
-			window.setTimeout(() => cover.classList.add('is-open'), 2800);
+			// El libro queda abierto 3 segundos y luego se desvanece
+			window.setTimeout(() => cover.classList.add('is-open'), 3000);
 			window.setTimeout(() => {
 				document.body.classList.remove('is-locked');
 				document.dispatchEvent(new CustomEvent('story:open'));
-			}, 3600);
+			}, 3900);
 		};
 
-		envelope.addEventListener('click', open);
+		book.addEventListener('click', open);
 		hint?.addEventListener('click', open);
 	}
 </script>
